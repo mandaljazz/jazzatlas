@@ -13,6 +13,9 @@ var bounds = [
   [7.474327, 58.039323]  // Northeast coordinates
 ];
 var exampleImages = ['elliot', 'helen', 'jenny', 'steve', 'stevie', 'veronika', 'matt']
+var currentEventIndex = 0;
+var currentEventMarker;
+
 
 function initMap() {
   mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -81,7 +84,6 @@ function addPlacesToMap() {
   });
 }
 
-
 function addEventsToMap() {
   console.log('Adding events to the map');
 
@@ -91,6 +93,7 @@ function addEventsToMap() {
     markerDiv.className = 'event-marker';
 
     eventFeature.properties.title = eventFeature.properties.artist + ' @ ' + eventFeature.properties.place;
+    // eventFeature.properties.imageURL = eventFeature.properties.image ? '../images/' + eventFeature.properties.image + '.jpg' : 'https://semantic-ui.com/images/avatar/large/' + exampleImages[i % exampleImages.length] + '.jpg';
     eventFeature.properties.imageURL = 'https://semantic-ui.com/images/avatar/large/' + exampleImages[i % exampleImages.length] + '.jpg';
     eventFeature.properties.mandaljazzURL = 'http://mandaljazz.no/';
 
@@ -113,41 +116,36 @@ function addEventsToMap() {
 }
 
 // Loop through all concerts indefinitely
-function playback(index) {
-  // Get the current event marker
-  var eventMarker = eventMarkers[index];
-
-  // Animate the map position based on camera properties
-  map.flyTo({
-    center: eventMarker._lngLat,
-    speed: 0.5,                        // Speed of the flight
-    curve: 1.3,                        // How far 'out' we should zoom on the flight from A to B
-    zoom: getRandomInt(15, 17),        // Set a random zoom level for effect
-    pitch: getRandomInt(0, 61),        // Pitch for coolness
-    bearing: getRandomInt(-10, 10)     // Tilt north direction slightly for even more coolness!
-  });
-
-  // Once the flight has ended, initiate a timeout that triggers a recursive call
-  map.once('moveend', function() {
-    // Toggle on info about this event
-    // eventMarker.togglePopup();
+function playback() {
+  return setInterval(function() {
+    if (currentEventMarker === undefined) {
+      currentEventMarker = eventMarkers[currentEventIndex];
+    }
 
     // Indicate that this is the active marker;
-    eventMarker._element.classList.add('active');
+    currentEventMarker._element.classList.remove('active');
 
-    setTimeout( function() {
-      // Toggle off info about this event
-      // eventMarker.togglePopup();
+    // Get the current event marker
+    currentEventMarker = eventMarkers[currentEventIndex];
 
+    // Animate the map position based on camera properties
+    map.flyTo({
+      center: currentEventMarker._lngLat,
+      speed: 0.5,                        // Speed of the flight
+      curve: 1.3,                        // How far 'out' we should zoom on the flight from A to B
+      zoom: getRandomInt(15, 17),        // Set a random zoom level for effect
+      pitch: getRandomInt(0, 61),        // Pitch for coolness
+      bearing: getRandomInt(-10, 10)     // Tilt north direction slightly for even more coolness!
+    });
+
+    // Once the flight has ended, initiate a timeout that triggers a recursive call
+    map.once('moveend', function() {
       // Indicate that this is the active marker;
-      eventMarker._element.classList.remove('active');
+      currentEventMarker._element.classList.add('active');
 
       // Get index of the next event.
       // Modulus length makes it 0 if we're at the last index, i.e. we'll start from the beginning again.
-      var nextIndex = (index + 1) % eventMarkers.length;
-
-      // Recursive call, fly to next event
-      playback(nextIndex);
-    }, timeAtEachConcert); // After callback, stay at the location for x milliseconds
-  });
+      currentEventIndex = (currentEventIndex + 1) % eventMarkers.length;
+    });
+  }, timeAtEachConcert);
 }

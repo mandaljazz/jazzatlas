@@ -28,6 +28,21 @@ a { text-decoration: none; }
   width: 100vw;
 }
 
+#play-button {
+  position: absolute;
+  font-size: 1.5em;
+  line-height: 0;
+  top: 0.5em;
+  left: 0.5em;
+  color: #3255a4;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+#play-button:hover {
+  color: #f15060;
+}
+
 .event-marker {
   background-size: cover;
   width: 50px;
