@@ -48,6 +48,7 @@ a { text-decoration: none; }
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  z-index: 1;
   cursor: pointer;
   transition:
     width 1s ease-in-out,
@@ -57,21 +58,49 @@ a { text-decoration: none; }
     border-radius 1s ease-in-out,
     filter .2s ease-in-out,
     z-index 1s ease-in-out;
-  z-index: 1;
 }
 .event-marker:hover {
   filter: brightness(1.1);
-}
-.event-marker.active, .event-marker:hover {
   margin-left: -150px;
   margin-top: -100px;
   width: 450px;
   height: 350px;
-  border-radius: 10px;
+  border-radius: 0;
   z-index: 2;
 }
-.event-marker.active .event-info, .event-marker:hover .event-info {
+.event-marker:hover .event-info {
   font-size: 1rem;
+}
+.event-marker.active {
+  animation: scaleMarkerStepwise 2s steps(3, start) forwards;
+}
+.event-marker.active .event-info {
+  animation: scaleFontStepwise 2s steps(3, start) forwards;
+}
+
+@keyframes scaleMarkerStepwise {
+  to {
+    margin-left: -150px;
+    margin-top: -100px;
+    width: 450px;
+    height: 350px;
+    border-radius: 0;
+    z-index: 2;
+  }
+  from {
+    margin-left: 0;
+    margin-top: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 0;
+    z-index: 1;
+  }
+}
+
+@keyframes scaleFontStepwise {
+  to {
+    font-size: 1rem;
+  }
 }
 
 .event-info {
