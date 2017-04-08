@@ -1,7 +1,7 @@
 
 // Variables
 var map;
-var timeAtEachConcert = 5000; // milliseconds
+var timeAtEachConcert = 6666; // milliseconds
 var colors = {
   blue: '#3255a4',
   red: '#f15060'
@@ -13,8 +13,8 @@ var bounds = [
   [7.474327, 58.039323]  // Northeast coordinates
 ];
 var exampleImages = ['elliot', 'helen', 'jenny', 'steve', 'stevie', 'veronika', 'matt']
-var currentEventIndex = 0;
-var currentEventMarker;
+var currentEventMarker = null;
+var isPlaying = true;
 
 
 function initMap() {
@@ -116,17 +116,17 @@ function addEventsToMap() {
 }
 
 // Loop through all concerts indefinitely
-function playback() {
-  return setInterval(function() {
-    if (currentEventMarker === undefined) {
-      currentEventMarker = eventMarkers[currentEventIndex];
-    }
+function playback(index) {
+  if (currentEventMarker === null) {
+    currentEventMarker = eventMarkers[index];
+  }
 
-    // Indicate that this is the active marker;
+  if (isPlaying) {
+    // Remove indication of previous marker as active;
     currentEventMarker._element.classList.remove('active');
 
     // Get the current event marker
-    currentEventMarker = eventMarkers[currentEventIndex];
+    currentEventMarker = eventMarkers[index];
 
     // Animate the map position based on camera properties
     map.flyTo({
@@ -143,9 +143,20 @@ function playback() {
       // Indicate that this is the active marker;
       currentEventMarker._element.classList.add('active');
 
-      // Get index of the next event.
-      // Modulus length makes it 0 if we're at the last index, i.e. we'll start from the beginning again.
-      currentEventIndex = (currentEventIndex + 1) % eventMarkers.length;
+      setTimeout( function() {
+        // Get index of the next event.
+        // Modulus length makes it 0 if we're at the last index, i.e. we'll start from the beginning again.
+        var nextIndex = (index + 1) % eventMarkers.length;
+
+        // Recursive call, fly to next event
+        playback(nextIndex);
+      }, timeAtEachConcert); // After callback, stay at the location for x milliseconds
     });
-  }, timeAtEachConcert);
+  } else {
+    currentEventMarker._element.classList.remove('active');
+
+    setTimeout( function() {
+      playback(index);
+    }, 2000);
+  }
 }

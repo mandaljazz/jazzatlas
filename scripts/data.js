@@ -35,6 +35,7 @@ function loadEvents() {
       .done( function(data) {
         eventsCollection.features = _.sortBy(data.features, 'properties.start');
         addEventsToMap();
+        playback(0);
       })
       .fail( function() {
         console.log('Oh, tits! Something went horribly wrong.')
