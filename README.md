@@ -4,15 +4,9 @@ Hvor er alle greiene på Mandaljazz, egentlig? De finner du i Jazzatlaset.
 
 # Utvikling
 ## Mapbox access token
-For å bruke Mapbox trenger man en sånn access token. Registrer deg gratis på [mapbox.com](https://www.mapbox.com/) for å få en.
+For å bruke Mapbox trenger man en access token. Registrer deg gratis på [mapbox.com](https://www.mapbox.com/) for å få en.
 
-Lag en fil som heter `env.js` i `scripts`-mappen som ser slik ut:
-
-    var MAPBOX_ACCESS_TOKEN = 'my_mapbox_access_token';
-    var MAPBOX_STYLE_URL    = 'mapbox://styles/hanshenrik/cizcwc8d600bb2spm3i0x80ot';
-    var PLACES_DATASET_ID   = 'my_places_dataset_id';
-    var EVENTS_DATASET_ID   = 'my_events_dataset_id';
-
+Lag en kopi av `.env.js.example` i `scripts`-mappen og kall den `.env.js`.
 
 ## Mapbox Studio
 Vi bruker [Mapbox Studio](https://www.mapbox.com/studio) til tre ting:
