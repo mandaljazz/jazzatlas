@@ -79,7 +79,7 @@ function addPlacesToMap() {
         'type': 'identity',
         'property': 'base-height'
       },
-      'fill-extrusion-opacity': 0.7
+      'fill-extrusion-opacity': 0.8
     }
   });
 }
@@ -133,7 +133,7 @@ function playback(index) {
       center: currentEventMarker._lngLat,
       speed: 0.5,                        // Speed of the flight
       curve: 1.3,                        // How far 'out' we should zoom on the flight from A to B
-      zoom: getRandomInt(15, 17),        // Set a random zoom level for effect
+      zoom: getRandomInt(16, 18),        // Set a random zoom level for effect
       pitch: getRandomInt(0, 61),        // Pitch for coolness
       bearing: getRandomInt(-10, 10)     // Tilt north direction slightly for even more coolness!
     });
