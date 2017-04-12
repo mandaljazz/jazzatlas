@@ -37,7 +37,7 @@ a { text-decoration: none; }
   color: #3255a4;
   opacity: 0.7;
   cursor: pointer;
-  transition: all 0.4s ease-in-out;
+  transition: color 0.4s ease-in-out;
 }
 #play-button:hover {
   color: #f15060;
@@ -52,7 +52,6 @@ a { text-decoration: none; }
 
   border-radius: 50%;
   z-index: 1;
-  cursor: pointer;
 
   transition:
     width 1s ease-in-out,
@@ -60,7 +59,6 @@ a { text-decoration: none; }
     margin-left 1s ease-in-out,
     margin-top 1s ease-in-out,
     border-radius 1.3s ease-in-out,
-    filter .2s ease-in-out,
     z-index 1s ease-in-out;
 }
 .event-marker.active, .event-marker:hover {
@@ -71,7 +69,6 @@ a { text-decoration: none; }
   border-radius: 0;
   z-index: 2;
 }
-.event-marker:hover { filter: brightness(1.1); }
 .event-marker.active .event-info, .event-marker:hover .event-info {
   font-size: 1rem;
 }
@@ -91,12 +88,20 @@ a { text-decoration: none; }
   font-size: 0;
   transition: font 1s ease-in-out;
 }
+
 .start-time, .title {
   font-family: 'TelefonBoldItalic', Verdana, sans-serif;
   line-height: 1.5;
 }
 .start-time { font-size: 3.2em; }
 .title { font-size: 1.9em; }
+.event-link {
+  border-bottom: 3px double #fafafa;
+  color: #fafafa;
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+.event-link:hover { transform: rotateZ(2deg); }
 
 .location-marker {
   width: 15px;

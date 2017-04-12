@@ -89,7 +89,7 @@ function addEventsToMap() {
 
   eventsCollection.features.forEach(function(eventFeature, i) {
     // create a DOM element for the marker
-    var markerDiv = document.createElement('a');
+    var markerDiv = document.createElement('div');
     markerDiv.className = 'event-marker';
 
     eventFeature.properties.title = eventFeature.properties.artist + ' @ ' + eventFeature.properties.place;
@@ -98,12 +98,11 @@ function addEventsToMap() {
     eventFeature.properties.mandaljazzURL = 'http://mandaljazz.no/';
 
     markerDiv.style.backgroundImage = 'url(' + eventFeature.properties.imageURL + ')';
-    markerDiv.href = eventFeature.properties.mandaljazzURL;
-    markerDiv.target = '_blank';
     markerDiv.innerHTML = "\
       <div class='event-info'> \
         <div class='start-time'>" + moment(eventFeature.properties.start).format('dddd HH:mm') + "</div> \
         <div class='title'>" + eventFeature.properties.title + "</div> \
+        <div>Les mer på <a class='event-link' href='" + eventFeature.properties.mandaljazzURL + "' target='_blank'>mandaljazz.no</a></div> \
       </div>";
 
     // add marker to map
