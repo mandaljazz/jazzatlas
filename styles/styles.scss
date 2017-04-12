@@ -1,3 +1,4 @@
+// Fonts
 @font-face {
   font-family: 'TelefonNormal';
   src: url('./fonts/Telefon-Normal.otf');
@@ -7,16 +8,25 @@
   font-family: 'TelefonBoldItalic';
   src: url('./fonts/Telefon-BoldItalic.otf');
 }
+$header-font: 'TelefonBoldItalic';
+$body-font: 'TelefonNormal';
+
+// Colors
+$blue: #3255a4;
+$red: #f15060;
+$black: #444;
+$white: #fafafa;
+
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'TelefonNormal', Verdana, sans-serif;
-  color: #444;
+  font-family: $body-font, Verdana, sans-serif;
+  color: $black;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'TelefonBoldItalic', Verdana, sans-serif;
+  font-family: $header-font, Verdana, sans-serif;
   line-height: 1;
 }
 
@@ -30,17 +40,20 @@ a { text-decoration: none; }
 
 #play-button {
   position: absolute;
-  font-size: 1.5em;
-  line-height: 0;
   top: 0.5em;
   left: 0.5em;
-  color: #3255a4;
+
+  font-size: 1.5em;
+  line-height: 0;
+
+  color: $blue;
   opacity: 0.7;
   cursor: pointer;
+
   transition: color 0.4s ease-in-out;
-}
-#play-button:hover {
-  color: #f15060;
+  &:hover {
+    color: $red;
+  }
 }
 
 .event-marker {
@@ -60,48 +73,53 @@ a { text-decoration: none; }
     margin-top 1s ease-in-out,
     border-radius 1.3s ease-in-out,
     z-index 1s ease-in-out;
-}
-.event-marker.active, .event-marker:hover {
-  margin-left: -150px;
-  margin-top: -100px;
-  width: 450px;
-  height: 350px;
-  border-radius: 0;
-  z-index: 2;
-}
-.event-marker.active .event-info, .event-marker:hover .event-info {
-  font-size: 1rem;
-}
-.event-info {
-  color: white;
-  background-size: cover;
+  &.active,
+  &:hover {
+    margin-left: -150px;
+    margin-top: -100px;
+    width: 450px;
+    height: 350px;
+    border-radius: 0;
+    z-index: 2;
 
-  text-align: right;
-  padding: 1rem;
-  height: 90%;
+    .event-info {
+      font-size: 1rem;
+    }
+  }
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
+  .event-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
 
-  font-size: 0;
-  transition: font 1s ease-in-out;
-}
+    height: 90%;
+    padding: 1rem;
+    background-size: cover;
+    color: $white;
+    font-size: 0;
+    text-align: right;
+    transition: font 1s ease-in-out;
 
-.start-time, .title {
-  font-family: 'TelefonBoldItalic', Verdana, sans-serif;
-  line-height: 1.5;
+    .start-time, .title {
+      font-family: $header-font, Verdana, sans-serif;
+      line-height: 1.5;
+    }
+
+    .start-time { font-size: 3.2em; }
+
+    .title { font-size: 1.9em; }
+
+    .event-link {
+      border-bottom: 3px double $white;
+      color: $white;
+      display: inline-block;
+      transition: transform 0.2s ease-in-out;
+
+      &:hover { transform: rotateZ(2deg); }
+    }
+  }
 }
-.start-time { font-size: 3.2em; }
-.title { font-size: 1.9em; }
-.event-link {
-  border-bottom: 3px double #fafafa;
-  color: #fafafa;
-  display: inline-block;
-  transition: transform 0.2s ease-in-out;
-}
-.event-link:hover { transform: rotateZ(2deg); }
 
 .location-marker {
   width: 15px;

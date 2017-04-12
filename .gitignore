@@ -1,2 +1,5 @@
 .DS_Store
 .env.js
+.sass-cache/
+*.css.map
+*.css
