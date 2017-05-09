@@ -12,7 +12,7 @@ var bounds = [
   [7.418380, 58.011527], // Southwest coordinates
   [7.474327, 58.039323]  // Northeast coordinates
 ];
-var exampleImages = ['elliot', 'helen', 'jenny', 'steve', 'stevie', 'veronika', 'matt']
+var defaultImages = ['default1', 'default2', 'default3', 'default4']
 var currentEventMarker = null;
 var isPlaying = true;
 
@@ -93,9 +93,8 @@ function addEventsToMap() {
     markerDiv.className = 'event-marker';
 
     eventFeature.properties.title = eventFeature.properties.artist + ' @ ' + eventFeature.properties.place;
-    // eventFeature.properties.imageURL = eventFeature.properties.image ? '../images/' + eventFeature.properties.image + '.jpg' : 'https://semantic-ui.com/images/avatar/large/' + exampleImages[i % exampleImages.length] + '.jpg';
-    eventFeature.properties.imageURL = 'https://semantic-ui.com/images/avatar/large/' + exampleImages[i % exampleImages.length] + '.jpg';
-    eventFeature.properties.mandaljazzURL = 'http://mandaljazz.no/';
+    eventFeature.properties.imageURL = eventFeature.properties.image ? '../images/artists/' + eventFeature.properties.image + '.jpg' : '../images/artists/' + defaultImages[i % defaultImages.length] + '.jpg';
+    eventFeature.properties.mandaljazzURL = 'http://mandaljazz.no/artister/' + eventFeature.properties.image;
 
     markerDiv.style.backgroundImage = 'url(' + eventFeature.properties.imageURL + ')';
     markerDiv.innerHTML = "\
