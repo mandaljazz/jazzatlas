@@ -94,7 +94,7 @@ function addEventsToMap() {
 
     eventFeature.properties.title = eventFeature.properties.artist + ' @ ' + eventFeature.properties.place;
     eventFeature.properties.imageURL = eventFeature.properties.image ? '../images/artists/' + eventFeature.properties.image + '.jpg' : '../images/artists/' + defaultImages[i % defaultImages.length] + '.jpg';
-    eventFeature.properties.mandaljazzURL = 'http://mandaljazz.no/artister/' + eventFeature.properties.image;
+    eventFeature.properties.mandaljazzURL = eventFeature.properties.image ? 'http://mandaljazz.no/artister/' + eventFeature.properties.image : 'http://mandaljazz.no/';
 
     markerDiv.style.backgroundImage = 'url(' + eventFeature.properties.imageURL + ')';
     markerDiv.innerHTML = "\
