@@ -1,7 +1,7 @@
 
 // Variables
 var map;
-var timeAtEachConcert = 6666; // milliseconds
+var timeAtEachConcert = 5555; // milliseconds
 var colors = {
   blue: '#3255a4',
   red: '#f15060'
@@ -13,8 +13,10 @@ var bounds = [
   [7.474327, 58.039323]  // Northeast coordinates
 ];
 var defaultImages = ['default1', 'default2', 'default3', 'default4']
-var currentEventMarker = null;
+var currentEventFeature = null;
+var activeEventId = null;
 var isPlaying = true;
+var distanceToTopForActiveEventInfo = 50;
 
 
 function initMap() {
@@ -90,6 +92,7 @@ function addEventsToMap() {
   eventsCollection.features.forEach(function(eventFeature, i) {
     // create a DOM element for the marker
     var markerDiv = document.createElement('div');
+    markerDiv.id = 'event-marker-' + eventFeature.id;
     markerDiv.className = 'event-marker';
 
     eventFeature.properties.title = eventFeature.properties.artist + ' @ ' + eventFeature.properties.place;
@@ -97,12 +100,7 @@ function addEventsToMap() {
     eventFeature.properties.mandaljazzURL = eventFeature.properties.image ? 'http://mandaljazz.no/artister/' + eventFeature.properties.image : 'http://mandaljazz.no/';
 
     markerDiv.style.backgroundImage = 'url(' + eventFeature.properties.imageURL + ')';
-    markerDiv.innerHTML = "\
-      <div class='event-info'> \
-        <div class='start-time'>" + moment(eventFeature.properties.start).format('dddd HH:mm') + "</div> \
-        <div class='title'>" + eventFeature.properties.title + "</div> \
-        <div>Les mer på <a class='event-link' href='" + eventFeature.properties.mandaljazzURL + "' target='_blank'>mandaljazz.no</a></div> \
-      </div>";
+    addConcertSection(eventFeature);
 
     // add marker to map
     marker = new mapboxgl.Marker(markerDiv, { offset: [-30, -30] })
@@ -111,48 +109,90 @@ function addEventsToMap() {
     
     eventMarkers.push(marker);
   });
+
+  $('.event-marker').click(function(e) {
+    stopPlayback();
+    $('html, body').animate({ scrollTop: $('#' + e.target.id.replace('marker-', '')).position().top + 2 }, 200)
+  })
 }
+
+function addConcertSection(eventFeature) {
+  var $eventDiv = $('<div>')
+    .attr('id', 'event-' + eventFeature.id)
+    .attr('class', 'event-section')
+    .css('background-image', 'url(' + eventFeature.properties.imageURL + ')')
+    .html(" \
+      <div class='event-info'> \
+        <div class='start-time'>" + moment(eventFeature.properties.start).format('dddd HH:mm') + "</div> \
+        <div class='title'>" + eventFeature.properties.title + "</div> \
+        <div>Les mer på <a class='event-link' href='" + eventFeature.properties.mandaljazzURL + "' target='_blank'>mandaljazz.no</a></div> \
+      </div>");
+
+  $('#eventSections').append($eventDiv);
+}
+
+
+function addScrollListener() {
+  window.onscroll = function() {
+    $.each(eventsCollection.features, function() {
+      var eventId = 'event-' + this.id;
+      if (isElementOnScreen(eventId)) {
+        setActiveEvent(this);
+        return false;
+      }
+    })
+  };
+}
+
+function setActiveEvent(eventFeature) {
+  var eventId = eventFeature.id;
+  if (eventId === activeEventId) return;
+
+  // Highlight the active concert in the concert list
+  $('#event-' + eventId).addClass('active');
+  $('#event-' + activeEventId).removeClass('active');
+  // Highlight the current marker when finished flying
+  $('#event-marker-' + eventId).addClass('active');
+  $('#event-marker-' + activeEventId).removeClass('active');
+
+  // Animate the map position based on camera properties
+  map.flyTo({
+    center: eventFeature.geometry.coordinates,
+    speed: 0.5,                        // Speed of the flight
+    curve: 1.3,                        // How far 'out' we should zoom on the flight from A to B
+    zoom: getRandomInt(14, 17),        // Set a random zoom level for effect
+    pitch: getRandomInt(0, 61),        // Pitch for coolness
+    bearing: getRandomInt(-10, 10)     // Tilt north direction slightly for even more coolness!
+  });
+
+  map.once('moveend', function() {
+  });
+
+  activeEventId = eventId;
+}
+
 
 // Loop through all concerts indefinitely
 function playback(index) {
-  if (currentEventMarker === null) {
-    currentEventMarker = eventMarkers[index];
-  }
+  currentEventFeature = eventsCollection.features[index];
 
   if (isPlaying) {
-    // Remove indication of previous marker as active;
-    currentEventMarker._element.classList.remove('active');
-
-    // Get the current event marker
-    currentEventMarker = eventMarkers[index];
-
-    // Animate the map position based on camera properties
-    map.flyTo({
-      center: currentEventMarker._lngLat,
-      speed: 0.5,                        // Speed of the flight
-      curve: 1.3,                        // How far 'out' we should zoom on the flight from A to B
-      zoom: getRandomInt(16, 18),        // Set a random zoom level for effect
-      pitch: getRandomInt(0, 61),        // Pitch for coolness
-      bearing: getRandomInt(-10, 10)     // Tilt north direction slightly for even more coolness!
-    });
-
+    // Scroll to the correct concert section
+    $('html, body').animate({ scrollTop: $('#event-' + currentEventFeature.id).position().top + 2 }, 800)
+  
     // Once the flight has ended, initiate a timeout that triggers a recursive call
     map.once('moveend', function() {
-      // Indicate that this is the active marker;
-      currentEventMarker._element.classList.add('active');
-
       setTimeout( function() {
         // Get index of the next event.
         // Modulus length makes it 0 if we're at the last index, i.e. we'll start from the beginning again.
-        var nextIndex = (index + 1) % eventMarkers.length;
+        var nextIndex = (index + 1) % eventsCollection.features.length;
+        console.log('nextIndex', nextIndex)
 
         // Recursive call, fly to next event
         playback(nextIndex);
       }, timeAtEachConcert); // After callback, stay at the location for x milliseconds
     });
   } else {
-    currentEventMarker._element.classList.remove('active');
-
     setTimeout( function() {
       playback(index);
     }, 2000);

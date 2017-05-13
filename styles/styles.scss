@@ -13,16 +13,24 @@ $body-font: 'TelefonNormal';
 
 // Colors
 $blue: #3255a4;
+$lightblue: #9fbae5;
 $red: #f15060;
 $black: #444;
 $white: #fafafa;
+$gray: #f6f6f4;
 
+
+// Transition times
+$fast: 0.2s;
+$slow: 1s;
 
 body {
   margin: 0;
   padding: 0;
   font-family: $body-font, Verdana, sans-serif;
   color: $black;
+  opacity: 0;
+  transition: opacity $slow ease-in-out;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -30,61 +38,76 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
-a { text-decoration: none; }
+a, a:visited, a:active {
+  color: $blue;
+  text-decoration: none;
+}
 
 #map {
   position: fixed;
+  right: 0;
+  float: right;
   height: 100vh;
-  width: 100vw;
+  width: 70vw;
 }
 
 #play-button {
-  position: absolute;
+  position: fixed;
   top: 0.5em;
   left: 0.5em;
+  z-index: 2;
 
   font-size: 1.5em;
   line-height: 0;
 
-  color: $blue;
+  color: $white;
   opacity: 0.7;
   cursor: pointer;
 
-  transition: color 0.4s ease-in-out;
+  transition: opacity $fast ease-in-out;
   &:hover {
-    color: $red;
+    opacity: 0.9;
   }
 }
 
 .event-marker {
   background-size: cover;
 
-  width: 50px;
-  height: 50px;
-  max-width: 100%;
-
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+
+  cursor: pointer;
+
   z-index: 1;
-
+  opacity: 0.8;
   transition:
-    width 1s ease-in-out,
-    height 1s ease-in-out,
-    margin-left 1s ease-in-out,
-    margin-top 1s ease-in-out,
-    border-radius 1.3s ease-in-out,
-    z-index 1s ease-in-out;
-  &.active,
-  &:hover {
-    margin-left: -150px;
-    margin-top: -100px;
-    width: 450px;
-    height: 350px;
-    border-radius: 0;
-    z-index: 2;
+    opacity $fast ease-in-out,
+    z-index $fast ease-in-out;
 
-    .event-info {
-      font-size: 1rem;
-    }
+  &.active, &:hover {
+    z-index: 2;
+    opacity: 1;
+  }
+}
+
+
+#eventSections {
+  position: relative;
+  width: 30vw;
+  padding-bottom: 500px;
+  background-color: $gray;
+}
+
+.event-section {
+  background-size: cover;
+  font-size: 1rem;
+  color: $white;
+  opacity: 0.2;
+  transition: opacity $fast ease-in-out;
+
+  &.active {
+    opacity: 1;
   }
 
   .event-info {
@@ -93,13 +116,10 @@ a { text-decoration: none; }
     justify-content: flex-end;
     align-items: flex-end;
 
-    height: 90%;
     padding: 1rem;
-    background-size: cover;
-    color: $white;
-    font-size: 0;
+    height: 330px;
+    background-color: rgba(0,0,0,0.1);
     text-align: right;
-    transition: font 1s ease-in-out;
 
     .start-time, .title {
       font-family: $header-font, Verdana, sans-serif;
@@ -114,7 +134,7 @@ a { text-decoration: none; }
       border-bottom: 3px double $white;
       color: $white;
       display: inline-block;
-      transition: transform 0.2s ease-in-out;
+      transition: transform $fast ease-in-out;
 
       &:hover { transform: rotateZ(2deg); }
     }
@@ -136,32 +156,13 @@ a { text-decoration: none; }
   opacity: 0.2;
 }
 
-
 /* Mapbox overrides */
 .mapboxgl-map {
   font-family: inherit;
   font-size: inherit;
 }
 
-.mapboxgl-popup {
-  transform: translate(0) !important;
-  position: absolute;
-  top: auto;
-  bottom: 3em;
-  z-index: 3;
+@media (min-width: 768px) {
 }
 @media (min-width: 768px) {
-  .mapboxgl-popup {
-    left: 3em;
-  }
-}
-.mapboxgl-popup-tip { display: none; }
-.mapboxgl-popup-content {
-  border-radius: 1px;
-  padding: 0;
-}
-@media (min-width: 768px) {
-  .mapboxgl-popup-content {
-    max-width: 400px;
-  }
 }
