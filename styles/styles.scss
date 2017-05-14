@@ -107,6 +107,7 @@ img {
   cursor: pointer;
 
   z-index: 1;
+  // filter: grayscale(1);
   opacity: 0.8;
   transition:
     opacity $fast ease-in-out,
@@ -115,6 +116,7 @@ img {
   &.active, &:hover {
     z-index: 2;
     opacity: 1;
+    // filter: grayscale(0);
   }
 }
 
@@ -137,8 +139,8 @@ img {
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
 
     background-color: rgba(0, 0, 0, 0.15);
     text-align: right;
@@ -147,6 +149,8 @@ img {
     @media (min-width: 768px) {
       padding: 1rem;
       height: 330px;
+      justify-content: flex-end;
+      align-items: flex-end;
     }
 
     .start-time, .title {
