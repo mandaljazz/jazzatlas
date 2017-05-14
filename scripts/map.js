@@ -100,23 +100,47 @@ function addEventsToMap() {
     eventFeature.properties.mandaljazzURL = eventFeature.properties.image ? 'http://mandaljazz.no/artister/' + eventFeature.properties.image : 'http://mandaljazz.no/';
 
     markerDiv.style.backgroundImage = 'url(' + eventFeature.properties.imageURL + ')';
-    addConcertSection(eventFeature);
+    addEventSection(eventFeature);
+
+    var $popupDiv = $('<div>')
+    .attr('class', 'event-section active')
+    .css('background-image', 'url(' + eventFeature.properties.imageURL + ')')
+    .html(" \
+      <div class='event-info'> \
+        <div class='start-time'>" + moment(eventFeature.properties.start).format('dddd HH:mm') + "</div> \
+        <div class='title'>" + eventFeature.properties.title + "</div> \
+        <div>Les mer på <a class='event-link' href='" + eventFeature.properties.mandaljazzURL + "' target='_blank'>mandaljazz.no</a></div> \
+      </div>");
+
+    var popup = new mapboxgl.Popup()
+      .setDOMContent($popupDiv.get(0));
 
     // add marker to map
     marker = new mapboxgl.Marker(markerDiv, { offset: [-30, -30] })
       .setLngLat(eventFeature.geometry.coordinates)
+      .setPopup(popup)
       .addTo(map);
     
     eventMarkers.push(marker);
   });
 
+  // Add a footer to the event-sections element
+  $eventSectionsFooter = $('<div>')
+    .attr('class', 'footer')
+    .html(" \
+      <img src='images/jazzlaug.png' /> \
+      <p>Sees på Mandaljazz!</p>");
+  $('#event-sections').append($eventSectionsFooter);
+
+  // Add a click listener after all markers are added to the map
   $('.event-marker').click(function(e) {
     stopPlayback();
     $('html, body').animate({ scrollTop: $('#' + e.target.id.replace('marker-', '')).position().top + 2 }, 200)
   })
 }
 
-function addConcertSection(eventFeature) {
+
+function addEventSection(eventFeature) {
   var $eventDiv = $('<div>')
     .attr('id', 'event-' + eventFeature.id)
     .attr('class', 'event-section')
@@ -128,7 +152,7 @@ function addConcertSection(eventFeature) {
         <div>Les mer på <a class='event-link' href='" + eventFeature.properties.mandaljazzURL + "' target='_blank'>mandaljazz.no</a></div> \
       </div>");
 
-  $('#eventSections').append($eventDiv);
+  $('#event-sections').append($eventDiv);
 }
 
 
@@ -143,6 +167,7 @@ function addScrollListener() {
     })
   };
 }
+
 
 function setActiveEvent(eventFeature) {
   var eventId = eventFeature.id;
