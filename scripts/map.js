@@ -185,8 +185,8 @@ function setActiveEvent(eventFeature) {
     center: eventFeature.geometry.coordinates,
     speed: 0.5,                        // Speed of the flight
     curve: 1.3,                        // How far 'out' we should zoom on the flight from A to B
-    zoom: getRandomInt(14, 17),        // Set a random zoom level for effect
-    pitch: getRandomInt(0, 61),        // Pitch for coolness
+    zoom: getRandomInt(15, 19),        // Set a random zoom level for effect
+    pitch: getRandomInt(0, 70),        // Pitch for coolness
     bearing: getRandomInt(-10, 10)     // Tilt north direction slightly for even more coolness!
   });
 
