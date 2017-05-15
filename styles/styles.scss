@@ -136,21 +136,21 @@ img {
 
   .event-info {
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
 
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
-
-    background-color: rgba(0, 0, 0, 0.15);
-    text-align: right;
-
     padding: 1rem;
+    text-align: center;
     @media (min-width: 768px) {
-      padding: 1rem;
-      height: 330px;
       justify-content: flex-end;
       align-items: flex-end;
+      padding: 1rem;
+      height: 330px;
+      text-align: right;
     }
 
     .start-time, .title {
