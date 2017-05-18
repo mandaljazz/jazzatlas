@@ -135,6 +135,13 @@ function addEventsToMap() {
   // Add a click listener after all markers are added to the map
   $('.event-marker').click(function(e) {
     stopPlayback();
+    var eventId = e.target.id.replace('event-marker-', '');
+    $.each(eventsCollection.features, function(key, eventFeature) {
+      if (eventFeature.id === eventId) {
+        setActiveEvent(eventFeature);
+        return false;
+      }
+    });
     $('html, body').animate({ scrollTop: $('#' + e.target.id.replace('marker-', '')).position().top + 2 }, 200)
   })
 }
