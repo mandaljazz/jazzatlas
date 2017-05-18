@@ -128,8 +128,9 @@ function addEventsToMap() {
   $eventSectionsFooter = $('<div>')
     .attr('class', 'footer')
     .html(" \
+      <h1>Billetter og mer info finner du på <a href='http://mandaljazz.no/' target='_blank'>mandaljazz.no</a></h1> \
       <img src='images/jazzlaug.png' /> \
-      <p>Sees på Mandaljazz!</p>");
+      <h2>Vi sees på Mandaljazz!</h2>");
   $('#event-sections').append($eventSectionsFooter);
 
   // Add a click listener after all markers are added to the map
