@@ -12,14 +12,14 @@ map.on('load', function() {
 
 $(document).ready(function() {
   // Workaround for iOS and Chrome on mobile to take address and bookmark bars into account
-  $('#map').css({ height: window.innerHeight });
+  $('#map').css({ height: $(window).height() });
   // In case user flips orientation or resizes the screen, handle it
   window.addEventListener("resize", function() {
-    $('#map').css({ height: window.innerHeight });
+    $('#map').css({ height: $(window).height() });
     map.resize();
   }, false);
 
   $('#play-button').click(function() {
     togglePlayback();
   })
-})
+});
