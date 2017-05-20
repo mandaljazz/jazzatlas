@@ -92,6 +92,22 @@ function addPlacesToMap() {
       'fill-extrusion-opacity': 0.8
     }
   });
+
+  map.addLayer({
+    'id': 'places-text',
+    'source': 'places',
+    'type': 'symbol',
+    'layout': {
+      'text-field': '{name}',
+      'text-transform': 'uppercase',
+      'text-font': ['Telefon Bold Italic'],
+      'text-size': 18,
+      'text-anchor': 'left',
+    },
+    'paint': {
+      'text-opacity': 0.5,
+    }
+  });
 }
 
 function addEventsToMap() {
