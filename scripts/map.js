@@ -12,7 +12,7 @@ var bounds = [
   [7.418380, 58.011527], // Southwest coordinates
   [7.474327, 58.039323]  // Northeast coordinates
 ];
-var defaultImages = ['default1', 'default2', 'default3', 'default4']
+var defaultImages = ['default3', 'default1', 'default2', 'default4']
 var currentEventFeature = null;
 var activeEventId = null;
 var isPlaying = true;
@@ -139,11 +139,11 @@ function addEventsToMap() {
     var eventId = e.target.id.replace('event-marker-', '');
     $.each(eventsCollection.features, function(key, eventFeature) {
       if (eventFeature.id === eventId) {
-        setActiveEvent(eventFeature);
+        setActiveEvent(eventFeature, false);
         return false;
       }
     });
-    $('html, body').animate({ scrollTop: $('#' + e.target.id.replace('marker-', '')).position().top + 2 }, 200)
+    $('html, body').scrollTop($('#' + e.target.id.replace('marker-', '')).position().top + 2);
   })
 }
 
@@ -177,7 +177,7 @@ function addScrollListener() {
 }
 
 
-function setActiveEvent(eventFeature) {
+function setActiveEvent(eventFeature, randomize = true) {
   var eventId = eventFeature.id;
   if (eventId === activeEventId) return;
 
@@ -188,18 +188,19 @@ function setActiveEvent(eventFeature) {
   $('#event-marker-' + eventId).addClass('active');
   $('#event-marker-' + activeEventId).removeClass('active');
 
-  // Animate the map position based on camera properties
-  map.flyTo({
+  var options = {
     center: eventFeature.geometry.coordinates,
-    speed: 0.5,                        // Speed of the flight
-    curve: 1.3,                        // How far 'out' we should zoom on the flight from A to B
-    zoom: getRandomInt(15, 19),        // Set a random zoom level for effect
-    pitch: getRandomInt(0, 70),        // Pitch for coolness
-    bearing: getRandomInt(-10, 10)     // Tilt north direction slightly for even more coolness!
-  });
+    speed: 0.5,                           // Speed of the flight
+    curve: 1.3,                           // How far 'out' we should zoom on the flight from A to B
+    pitch: getRandomInt(0, 70),           // Pitch for coolness
+    bearing: getRandomInt(-10, 10)        // Tilt north direction slightly for even more coolness!
+  }
 
-  map.once('moveend', function() {
-  });
+  if (randomize) {
+    options.zoom = getRandomInt(15, 19);  // Set a random zoom level for effect
+  }
+  // Animate the map position based on camera properties
+  map.flyTo(options);
 
   activeEventId = eventId;
 }
