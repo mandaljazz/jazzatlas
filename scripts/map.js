@@ -102,7 +102,9 @@ function addPlacesToMap() {
       'text-transform': 'uppercase',
       'text-font': ['Telefon Bold Italic'],
       'text-size': 18,
-      'text-anchor': 'left',
+      'text-anchor': 'bottom',
+      'text-offset': [0, 1],
+      'text-pitch-alignment': 'map',
     },
     'paint': {
       'text-opacity': 0.5,
