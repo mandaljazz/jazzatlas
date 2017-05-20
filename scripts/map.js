@@ -26,9 +26,17 @@ function initMap() {
     container: 'map',
     style: MAPBOX_STYLE_URL,
     center: [7.454231, 58.025881],
-    zoom: 15,
+    zoom: 13,
     attributionControl: false,
   });
+
+  map.fitBounds([[
+    7.443059,
+    58.024003
+  ], [
+    7.458623,
+    58.028287
+  ]]);
 
   map.addControl(new mapboxgl.AttributionControl({ compact: true }));
   map.addControl(new mapboxgl.NavigationControl());
