@@ -16,7 +16,7 @@ var defaultImages = ['default3', 'default1', 'default2', 'default4']
 var currentEventFeature = null;
 var activeEventId = null;
 var isPlaying = true;
-var distanceToTopForActiveEventInfo = 50;
+var distanceToTopForActiveEventInfo = 200;
 
 
 function initMap() {
@@ -169,7 +169,7 @@ function addEventsToMap() {
         return false;
       }
     });
-    $('html, body').scrollTop($('#' + e.target.id.replace('marker-', '')).position().top + 2);
+    $('html, body').scrollTop($('#' + e.target.id.replace('marker-', '')).position().top + 2 - distanceToTopForActiveEventInfo);
   })
 }
 
@@ -238,7 +238,7 @@ function playback(index) {
 
   if (isPlaying) {
     // Scroll to the correct concert section
-    $('html, body').animate({ scrollTop: $('#event-' + currentEventFeature.id).position().top + 2 }, 800)
+    $('html, body').animate({ scrollTop: Math.max($('#event-' + currentEventFeature.id).position().top + 2 - distanceToTopForActiveEventInfo, 1) }, 800)
   
     // Once the flight has ended, initiate a timeout that triggers a recursive call
     map.once('moveend', function() {

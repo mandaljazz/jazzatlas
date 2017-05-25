@@ -67,11 +67,11 @@ img {
 #map {
   position: fixed;
   right: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   @media (min-width: 768px) {
     float: right;
-    width: 70vw;
+    width: 70%;
   }
 }
 
@@ -81,11 +81,11 @@ img {
 
   @media (min-width: 768px) {
     display: block;
-    width: 30vw;
+    width: 30%;
   }
 
   .footer {
-    height: 100vh;
+    height: 100%;
     padding: 2rem;
     display: flex;
     text-align: center;
@@ -217,8 +217,8 @@ img {
   top: auto;
   bottom: 0;
   left: 0;
-  width: 100vw;
-  height: 34vh;
+  width: 100%;
+  height: 40%;
   z-index: 3;
 
   @media (min-width: 768px) { display: none; }
