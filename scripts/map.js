@@ -42,7 +42,6 @@ function initMap() {
   map.addControl(new mapboxgl.NavigationControl());
   var geolocate = new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true } })
   map.addControl(geolocate);
-  map.addControl(new mapboxgl.FullscreenControl());
 
   geolocate.on('geolocate', function(e) {
     // Only create the marker if it does not exist, otherwise just update the position
