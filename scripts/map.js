@@ -1,7 +1,7 @@
 
 // Variables
 var map;
-var timeAtEachConcert = 5555; // milliseconds
+var timeAtEachConcert = 4999; // milliseconds
 var colors = {
   blue: '#3255a4',
   red: '#f15060'
