@@ -1,15 +1,15 @@
 // Fonts
 @font-face {
-  font-family: 'TelefonNormal';
-  src: url('./fonts/Telefon-Normal.otf');
+  font-family: "TelefonNormal";
+  src: url("./fonts/Telefon-Normal.otf");
 }
 
 @font-face {
-  font-family: 'TelefonBoldItalic';
-  src: url('./fonts/Telefon-BoldItalic.otf');
+  font-family: "TelefonBoldItalic";
+  src: url("./fonts/Telefon-BoldItalic.otf");
 }
-$header-font: 'TelefonBoldItalic';
-$body-font: 'TelefonNormal';
+$header-font: "TelefonBoldItalic";
+$body-font: "TelefonNormal";
 
 // Colors
 $blue: #3255a4;
@@ -18,7 +18,6 @@ $red: #f15060;
 $black: #444;
 $white: #fafafa;
 $gray: #f6f6f4;
-
 
 // Transition times
 $fast: 0.2s;
@@ -36,7 +35,12 @@ body {
   transition: opacity $slower ease-in-out;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $header-font, Verdana, sans-serif;
 }
 
@@ -46,7 +50,9 @@ a {
   text-decoration: none;
 
   transition: transform $fast ease-in-out;
-  &:hover { transform: rotateZ(2deg); }
+  &:hover {
+    transform: rotateZ(2deg);
+  }
 
   &:visited,
   &:active {
@@ -126,12 +132,11 @@ img {
   z-index: 1;
   filter: grayscale(0.4);
   opacity: 0.9;
-  transition:
-    opacity $fast ease-in-out,
-    filter $fast ease-in-out,
+  transition: opacity $fast ease-in-out, filter $fast ease-in-out,
     z-index $fast ease-in-out;
 
-  &.active, &:hover {
+  &.active,
+  &:hover {
     z-index: 2;
     opacity: 1;
     filter: grayscale(0);
@@ -171,7 +176,8 @@ img {
       text-align: right;
     }
 
-    .start-time, .title {
+    .start-time,
+    .title {
       font-family: $header-font, Verdana, sans-serif;
       line-height: 1.5;
     }
@@ -222,10 +228,14 @@ img {
   height: 40%;
   z-index: 3;
 
-  @media (min-width: 768px) { display: none; }
+  @media (min-width: 768px) {
+    display: none;
+  }
 
- .mapboxgl-popup-tip { display: none; }
- .mapboxgl-popup-content {
+  .mapboxgl-popup-tip {
+    display: none;
+  }
+  .mapboxgl-popup-content {
     width: 100%;
     height: 100%;
     border-radius: 0;

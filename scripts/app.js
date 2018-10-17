@@ -1,25 +1,29 @@
 initMap();
 
-map.on('load', function() {
+map.on("load", function() {
   loadPlaces();
 
   loadEvents();
 
   addScrollListener();
 
-  $('body').css('opacity', 1);
+  $("body").css("opacity", 1);
 });
 
 $(document).ready(function() {
   // Workaround for iOS and Chrome on mobile to take address and bookmark bars into account
-  $('#map').css({ height: $(window).height() });
+  $("#map").css({ height: $(window).height() });
   // In case user flips orientation or resizes the screen, handle it
-  window.addEventListener("resize", function() {
-    $('#map').css({ height: $(window).height() });
-    map.resize();
-  }, false);
+  window.addEventListener(
+    "resize",
+    function() {
+      $("#map").css({ height: $(window).height() });
+      map.resize();
+    },
+    false
+  );
 
-  $('#play-button').click(function() {
+  $("#play-button").click(function() {
     togglePlayback();
-  })
+  });
 });
