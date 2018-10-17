@@ -1,16 +1,16 @@
 // Fonts
-@font-face {
-  font-family: "TelefonNormal";
-  src: url("./fonts/Telefon-Normal.otf");
-}
+// @font-face {
+//   font-family: "TelefonNormal";
+//   src: url("./fonts/Telefon-Normal.otf");
+// }
 
-@font-face {
-  font-family: "TelefonBoldItalic";
-  src: url("./fonts/Telefon-BoldItalic.otf");
-}
+// @font-face {
+//   font-family: "TelefonBoldItalic";
+//   src: url("./fonts/Telefon-BoldItalic.otf");
+// }
 
-$header-font: "Josefin Sans", cursive; // "TelefonBoldItalic";
-$body-font: "Roboto", sans-serif; // "TelefonNormal";
+$header-font: "Josefin Sans", Verdana, sans-serif; // "TelefonBoldItalic";
+$body-font: "Josefin Sans", Verdana, sans-serif; // "TelefonNormal";
 
 // Colors
 $blue: #3255a4;
@@ -28,7 +28,8 @@ $slower: 1.5s;
 body {
   margin: 0;
   padding: 0;
-  font-family: $body-font, Verdana, sans-serif;
+  font-family: $body-font;
+  text-shadow: 1px 1px 1px $black;
   color: $black;
   background-color: $gray;
   line-height: 1.5;
@@ -42,7 +43,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $header-font, Verdana, sans-serif;
+  font-family: $header-font;
+  font-weight: 700;
+  font-style: italic;
 }
 
 a {
@@ -179,7 +182,9 @@ img {
 
     .start-time,
     .title {
-      font-family: $header-font, Verdana, sans-serif;
+      font-family: $header-font;
+      font-weight: 700;
+      font-style: italic;
       line-height: 1.5;
     }
 
