@@ -8,8 +8,9 @@
   font-family: "TelefonBoldItalic";
   src: url("./fonts/Telefon-BoldItalic.otf");
 }
-$header-font: "TelefonBoldItalic";
-$body-font: "TelefonNormal";
+
+$header-font: "Josefin Sans", cursive; // "TelefonBoldItalic";
+$body-font: "Roboto", sans-serif; // "TelefonNormal";
 
 // Colors
 $blue: #3255a4;
