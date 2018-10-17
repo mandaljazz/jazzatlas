@@ -8,7 +8,7 @@ Hvor er alle greiene på Mandaljazz, egentlig? De finner du i Jazzatlaset.
 
 For å bruke Mapbox trenger man en access token. Registrer deg gratis på [mapbox.com](https://www.mapbox.com/) for å få en.
 
-Lag en kopi av `.env.js.example` i `scripts`-mappen og kall den `.env.js`.
+Lag en kopi av `env.js.example` i `scripts`-mappen og kall den `env.js`.
 
 ## Mapbox Studio
 
