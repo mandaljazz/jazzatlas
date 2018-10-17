@@ -18,6 +18,20 @@ Vi bruker [Mapbox Studio](https://www.mapbox.com/studio) til tre ting:
 - Legge inn faste steder (konsertsteder, festivalområde, infostands, installasjoner, etc.)
 - Legge inn hendinger (konserter, happenings, etc.)
 
+## Styling
+
+Installer Sass
+
+```bash
+$ npm install -g sass
+```
+
+Generer CSS hver gang SCSS-filene endrer seg
+
+```bash
+$ sass --watch --style=compressed styles:styles
+```
+
 # Smil
 
 Det er jo ikke så verst i dag, er'e det 'a?
